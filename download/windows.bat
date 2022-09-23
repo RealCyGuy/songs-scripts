@@ -1,0 +1,2 @@
+@cd path/to/songs
+yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s [[%%(id)s %%(uploader)s]].%%(ext)s" --download-archive archive.txt --rm-cache-dir -i https://www.youtube.com/playlist?list=PLRct1-5In-8Ewg5Kq-0JP8wh3ZweOXH9A --playlist-reverse --audio-quality 0
