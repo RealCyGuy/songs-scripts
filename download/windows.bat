@@ -1,2 +1,2 @@
 @cd path/to/songs
-yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s [[%%(id)s %%(uploader)s]].%%(ext)s" --download-archive archive.txt --rm-cache-dir -i https://www.youtube.com/playlist?list=PLRct1-5In-8Ewg5Kq-0JP8wh3ZweOXH9A --playlist-reverse --audio-quality 0
+yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s.%%(ext)s" --download-archive archive.txt --rm-cache-dir https://www.youtube.com/playlist?list=PLRct1-5In-8Ewg5Kq-0JP8wh3ZweOXH9A --playlist-reverse --audio-quality 0 --add-metadata --parse-metadata "uploader:%(meta_artist)s" --parse-metadata ":(?P<meta_title>)" --parse-metadata ":(?P<meta_purl>)" --parse-metadata ":(?P<meta_synopsis>)" --parse-metadata ":(?P<meta_description>)" --exec "r128gain"
