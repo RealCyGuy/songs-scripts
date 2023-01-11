@@ -37,7 +37,9 @@ def add_metadata_to_directory(directory: str):
         print(f"Loaded {len(added)} lines from {archive.name}\n")
         for file in songs:
             path = Path(file)
-            search = re.search(r"(?<=\[)([A-Za-z0-9_\-]*)(?=])", path.stem)
+            search = None
+            for s in re.finditer(r"(?<=\[)([A-Za-z0-9_\-]*)(?=])", path.stem):
+                search = s
             if search is None:
                 print(f"Warning: Couldn't find a video id in {file}")
                 continue
