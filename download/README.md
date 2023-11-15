@@ -8,7 +8,7 @@ they require [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) to be installed and in
 
 `windows.bat` only downloads audio, thumbnails and metadata.
 
-you need to put your own folder path in the script.
+you need to put your own folder path and path to `config.txt` in the script.
 
 ## android
 
