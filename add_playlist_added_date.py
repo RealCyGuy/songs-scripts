@@ -20,7 +20,9 @@ def dir_path(string):
         raise NotADirectoryError(string)
 
 
-def add_metadata_to_directory(directory: str, delete: bool, missing: bool):
+def add_metadata_to_directory(
+    directory: str, delete: bool, missing: bool, delete_all: bool
+):
     api = "https://raw.githubusercontent.com/RealCyGuy/songs-backup/main/output/summary.json"
     data = requests.get(api).json()
     songs_data = {}
@@ -76,7 +78,9 @@ def add_metadata_to_directory(directory: str, delete: bool, missing: bool):
     )
     if missing:
         show_missing(missing_songs, songs_data)
-    if delete:
+    if delete_all:
+        delete_all_songs(delete_songs)
+    elif delete:
         delete_menu(delete_songs)
 
 
@@ -106,6 +110,30 @@ def delete_menu(songs: MutableMapping[str, str]) -> None:
             print(f"Video id {video_id} is not in the list!")
 
 
+def delete_all_songs(songs: MutableMapping[str, str]) -> None:
+    if len(songs) == 0:
+        print("\nNo songs to delete.")
+        return
+    check = input(
+        f"\nAre you sure you want to {len(songs)} song{check_plural(len(songs), 's')} without data? (y/n) "
+    )
+    print()
+    if check.lower() == "y":
+        for video_id, name in songs.items():
+            try:
+                os.remove(name)
+            except Exception as e:
+                print(e)
+                break
+            else:
+                print(f"Successfully deleted {name}")
+        print(
+            f"\nDeleted {len(songs)} song{check_plural(len(songs), 's')} without data."
+        )
+    else:
+        print("Cancelled.")
+
+
 def show_missing(missing_songs: Set[str], songs_data: Mapping[str, dict]) -> None:
     print("\nThese songs aren't downloaded yet:\n")
     for song in missing_songs:
@@ -129,6 +157,11 @@ if __name__ == "__main__":
         action="store_true",
         help="list songs that aren't found",
     )
+    argParser.add_argument(
+        "--delete-all",
+        action="store_true",
+        help="delete all songs without data",
+    )
 
     args = argParser.parse_args()
-    add_metadata_to_directory(args.path, args.delete, args.missing)
+    add_metadata_to_directory(args.path, args.delete, args.missing, args.delete_all)
