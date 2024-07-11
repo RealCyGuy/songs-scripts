@@ -15,3 +15,7 @@ you need to put your own folder path and path to `config.txt` in the script.
 `android.sh` does what windows does, but is more opinionated. it downloads the songs to `/storage/emulated/0/music/songs`, prompts you to add replaygain tags, and adds playlist added date metadata with `add_playlist_added_date.py`. so make sure you have those installed and in path.
 
 this script expects you to have `add_playlist_added_date.py` in `/storage/emulated/0/music` and a folder named `songs` in it.
+
+## macos
+
+similar to android, but uses [`rsgain`](https://github.com/complexlogic/rsgain) to add replaygain tags.
