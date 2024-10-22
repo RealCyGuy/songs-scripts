@@ -3,7 +3,7 @@ import glob
 import os
 import re
 from pathlib import Path
-from typing import MutableMapping, Mapping, Set
+from typing import Mapping, MutableMapping, Set
 
 import requests
 from isodate import parse_datetime
@@ -85,6 +85,9 @@ def add_metadata_to_directory(
 
 
 def delete_menu(songs: MutableMapping[str, str]) -> None:
+    if len(songs) == 0:
+        print("\nNo songs to delete.")
+        return
     print("\nThese are songs that I couldn't find song data for:\n")
     width = len(max(songs.keys(), key=lambda x: len(x)))
     for video_id, name in songs.items():
